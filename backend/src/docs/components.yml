@@ -1,0 +1,129 @@
+components:
+  schemas:
+    Category:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      example:
+        id: 5ebac534954b54139806c112
+        name: live
+    GameItem:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        category:
+          type: string
+          format: uuid
+        subtitle:
+          type: string
+        description:
+          type: string
+        images:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+              url:
+                type: string
+              type:
+                type: string
+        tags:
+          type: array
+          items:
+            type: string
+        author:
+          type: string
+        replayBundleUrlJson:
+          type: string
+        duration:
+          type: float
+        type:
+          type: integer
+        isDownloadable:
+          type: boolean
+        isStreamable:
+          type: boolean
+        version:
+          type: string
+      example:
+        title: Live Event
+        subtitle: Live Event
+        description: this is a description example
+        category: 5ebac534954b54139806c111
+        images:
+          - id: 5ebac534994b54139806c111
+            url: "http://example.com/a.png"
+            type: 1
+        tags:
+          - tag1
+          - tag2
+        type: 1
+        author: author
+        duration: 10.11
+        isDownloadable: false
+        isStreamable: true
+        version: "10.10"
+    Image:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: number
+        url:
+          type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: number
+        message:
+          type: string
+
+  responses:
+    DuplicateName:
+      description: Name already taken
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 400
+            message: Name already taken
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 401
+            message: Please authenticate
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 403
+            message: Forbidden
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 404
+            message: Not found
