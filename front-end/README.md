@@ -12,6 +12,7 @@ src\
  |--routes\         # Routers
  |--services\       # Service Layer - is used for communicate with apis
  |--view\           # React Pages 
+ |--nginx           # nginx configuration for webapp.
 ```
 
 ## Libraries
@@ -25,7 +26,7 @@ src\
 
 ## Command
 
-- start dev locally: `yarn dev`
+- start dev locally: `yarn start`
 
 
 

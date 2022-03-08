@@ -7,7 +7,6 @@ services:
     environment:
       - MONGODB_URL=mongodb://mongodb:27017/unity3d-challenge
       - PORT=4000
-    container_name: node-app-dev
     command: yarn dev -L
     ports:
       - '4000:4000'

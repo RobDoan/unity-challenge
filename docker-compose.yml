@@ -1,0 +1,65 @@
+version: '3'
+
+services:
+  ui:
+    build:
+      dockerfile: Dockerfile
+      context: ./front-end
+    image: webapp
+    environment:
+      - API_HOST=app
+      - API_PORT=4000
+    command: >
+      sh -c "
+        while ! nc -w 1 -z host.docker.internal 4000 </dev/null
+        do
+          echo 'waiting.....'
+          sleep 1
+        done
+        nginx -g 'daemon off;'
+      "
+    networks:
+      - node-network
+    ports:
+      - '8080:8080'
+    depends_on:
+      - app
+  app:
+    build:
+      dockerfile: ./Dockerfile
+      context: ./backend
+    image: api
+    environment:
+      - MONGODB_URL=mongodb://mongodb:27017/unity3d-challenge
+      - PORT=4000
+    command: >
+      sh -c "
+        while ! nc -w 1 -z host.docker.internal 27017 </dev/null
+        do
+          echo 'waiting.....'
+          sleep 1
+        done
+        yarn dev -L
+      "
+    ports:
+      - '4000:4000'
+    depends_on:
+      - mongodb
+    networks:
+      - node-network
+
+  mongodb:
+    image: mongo:4.2.1-bionic
+    ports:
+      - '27017:27017'
+    volumes:
+      - dbdata:/data/db
+    networks:
+      - node-network
+
+volumes:
+  dbdata:
+
+networks:
+  node-network:
+    driver: bridge
