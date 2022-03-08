@@ -6,10 +6,11 @@ services:
     image: node-app
     environment:
       - MONGODB_URL=mongodb://mongodb:27017/unity3d-challenge
+      - PORT=4000
     container_name: node-app-dev
     command: yarn dev -L
     ports:
-      - '3000:3000'
+      - '4000:4000'
     depends_on:
       - mongodb
     volumes:

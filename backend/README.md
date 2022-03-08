@@ -22,7 +22,7 @@
 - Running locally: `yarn dev`
 - Using Docker: `docker-compose up/run`
 
-Api Document: `http://localhost:3000/v1/docs`
+Api Document: `http://localhost:4000/v1/docs`
 
 ## Project Structure
 
