@@ -21,8 +21,19 @@ const createGameItem = async (gameItemBody) => {
  * @returns {Promise<QueryResult>}
  */
 const queryGameItems = async (filter, options) => {
-  const gameItems = await GameItem.paginate(filter, options);
-  return gameItems;
+  const gameItems = await GameItem.paginate(filter, { ...options, populate: 'category', } );
+
+  const {results, page, limit, totalPages, totalResults} = gameItems
+  const processResults = results.map( (item) => {
+    // console.info(JSON.stringify())
+    const newItem = Object.assign(item._doc, {
+      type: 1,
+      category: item.categoryName(),
+      images: item.imageData(options.requestHost)
+    })
+    return newItem
+  })
+  return {results: processResults, page, limit, totalPages, totalResults}
 };
 
 /**

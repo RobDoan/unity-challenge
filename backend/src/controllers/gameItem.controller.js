@@ -30,7 +30,8 @@ const removeGameItem = catchAsync(async (req, res) => {
 const listGameItems = catchAsync(async (req, res) => {
   const filter = R.pick(['name'], req.query);
   const options = R.pick(['sortBy', 'limit', 'page'], req.query);
-  const gameItems = await gameItemService.queryGameItems(filter, options);
+  const requestHost = req.protocol + '://' + req.get('host');
+  const gameItems = await gameItemService.queryGameItems(filter, {...options, requestHost});
   res.send(gameItems);
 });
 
