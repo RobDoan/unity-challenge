@@ -34,8 +34,8 @@ namespace UnityEngine.Replay
         {
             ListingsContainer allListings = JsonUtility.FromJson<ListingsContainer>(jsonString);
             List<Listing> listings = new List<Listing>();
-            
-            foreach (Listing listing in allListings.listings)
+
+            foreach (Listing listing in allListings.results)
             {
                 listings.Add(listing);
             }

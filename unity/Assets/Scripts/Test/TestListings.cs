@@ -1,7 +1,9 @@
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Replay;
-
+using UnityEngine.Networking;
+using Services;
 namespace Unity.Metacast.Demo
 {
     /// <summary>
@@ -15,10 +17,10 @@ namespace Unity.Metacast.Demo
         ///     Start is called on the frame when a script is enabled just
         ///     before any of the Update methods are called the first time.
         /// </summary>
-        private void Start()
+        private async void Start()
         {
-            //TODO Instead of a TextAsset pass JSON result from the web server.
-            UIBrowser.instance.Init(m_TestJson.text);
+            var jsonText = await GameItemService.RequestGameItems();
+            UIBrowser.instance.Init(jsonText);
         }
     }
 }

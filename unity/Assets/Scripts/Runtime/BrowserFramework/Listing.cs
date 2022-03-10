@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 
 namespace UnityEngine.Replay
-{    
+{
     /// <summary>
     /// container for multiple listings
     /// </summary>
     [Serializable]
     public class ListingsContainer
     {
-        public List<Listing> listings;
+        public List<Listing> results;
     }
 
     /// <summary>
@@ -66,8 +66,19 @@ namespace UnityEngine.Replay
                 {
                     return imageObject.texture;
                 }
-            
+
             return new Texture2D(0, 0);
+        }
+
+        public string GetImageUrl(ImageType imageType)
+        {
+            foreach (var imageObject in images)
+                if (imageObject.type == imageType)
+                {
+                    return imageObject.url;
+                }
+
+            return "";
         }
     }
 }
