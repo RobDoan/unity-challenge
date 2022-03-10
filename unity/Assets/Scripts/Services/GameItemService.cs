@@ -16,7 +16,7 @@ namespace Services
 }
   public class GameItemService
   {
-    [SerializeField] private static string url = "http://localhost:4000/v1/game-items";
+    [SerializeField] private static string url = "http://localhost:8080/api/v1/game-items";
   public static async Task<string> RequestGameItems(){
         using(UnityWebRequest unityWebRequest = UnityWebRequest.Get(url))
         {
